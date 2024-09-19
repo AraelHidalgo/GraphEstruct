@@ -10,16 +10,26 @@ package analisisLexico;
  */
 public enum Tokens {
     IDENTIFICADOR,
-    CREAR_ARRAY,
-    CREAR_MATRIZ,
-    CREAR_LISTA, 
+    CREAR,
     ASIGNAR,
-    MODIFICAR,
-    MODIFICAR_MATRIZ,
+    MODIFICAR, 
     ELIMINAR,
-    ELIMINAR_MATRIZ,
-    MOSTRAR,
+    AGREGAR,
+    REMOVER,
     PINTAR,
+    MOSTRAR,
     VACIAR,
+    DIGITO,
+    COLOR,
+    A,
+    EN,
+    ARRAY,
+    LISTA,
+    MATRIZ,
+    CORCHETEA,
+    CORCHETEC,
+    INDICE_MATRIZ,
+    FINAL,
     ERROR
+
 }

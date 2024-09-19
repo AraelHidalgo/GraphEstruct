@@ -17,14 +17,17 @@ COMA = ","
 CREAR = "Crear"
 ARRAY = "array"
 LISTA= "lista"
+MATRIZ = "matriz"
 MOSTRAR = "Mostrar"
 MODIFICAR = "Modificar"
-PINTAR= "pintar"
+PINTAR= "Pintar"
 ASIGNAR = "Asignar"
 ELIMINAR = "Eliminar"
+AGREGAR = "Agregar"
+REMOVER = "Remover"
 EN = "en"
 COLOR = "color"
-VACIAR = "vaciar"
+VACIAR = "Vaciar"
 A = "a"
 IDENTIFICADOR = {L}({L}|{D})*
 CORCHETEA = "["
@@ -39,49 +42,91 @@ FINAL = ";"
 
 // Definiciones de reglas para reconocer los lexemas
 {ESPACIO} { /* Ignorar espacios en blanco */ }
-[a-zA-Z_][a-zA-Z_0-9]* { return Tokens.IDENTIFICADOR; }
-{CREAR}{ESPACIO}{ARRAY}{ESPACIO}{IDENTIFICADOR}{CORCHETEA}{INDICE}{CORCHETEC}{FINAL} {
+//Palabras clave
+{CREAR} {
     lexeme = yytext();
-    return CREAR_ARRAY;
+    return CREAR;
 }
-{CREAR}{ESPACIO}{ARRAY}{ESPACIO}{IDENTIFICADOR}{CORCHETEA}{INDICEMATRIZ}{CORCHETEC}{FINAL} { 
-    lexeme = yytext(); 
-    return CREAR_MATRIZ; 
-}
-{CREAR}{ESPACIO}{LISTA}{ESPACIO}{IDENTIFICADOR}{CORCHETEA}{INDICE}{CORCHETEC}{FINAL} {
-    lexeme = yytext();
-    return CREAR_LISTA;
-}
-{ASIGNAR}{ESPACIO}{VALOR}{ESPACIO}{A}{ESPACIO}{IDENTIFICADOR}{CORCHETEA}{INDICE}{CORCHETEC}{FINAL} {
+{ASIGNAR} {
     lexeme = yytext();
     return ASIGNAR;
 }
-{MODIFICAR}{ESPACIO}{IDENTIFICADOR}{CORCHETEA}{INDICE}{CORCHETEC}{ESPACIO}{A}{ESPACIO}{NUEVOVALOR} {
+{MODIFICAR} {
     lexeme = yytext();
     return MODIFICAR;
 }
-{MODIFICAR}{ESPACIO}{IDENTIFICADOR}{CORCHETEA}{INDICEMATRIZ}{CORCHETEC}{ESPACIO}{A}{ESPACIO}{NUEVOVALOR} {
-    lexeme = yytext();
-    return MODIFICAR_MATRIZ;
-}
-{ELIMINAR}{ESPACIO}{IDENTIFICADOR}{CORCHETEA}{INDICE}{CORCHETEC}{FINAL} {
+{ELIMINAR} {
     lexeme = yytext();
     return ELIMINAR;
 }
-{ELIMINAR}{ESPACIO}{IDENTIFICADOR}{CORCHETEA}{INDICEMATRIZ}{CORCHETEC}{FINAL} {
+{AGREGAR} {
     lexeme = yytext();
-    return ELIMINAR_MATRIZ;
+    return AGREGAR;
 }
-{MOSTRAR}{ESPACIO}{IDENTIFICADOR}{FINAL} {
+{REMOVER} {
+    lexeme = yytext();
+    return REMOVER;
+}
+{PINTAR} {
+    lexeme = yytext();
+    return PINTAR;
+}
+{MOSTRAR} {
     lexeme = yytext();
     return MOSTRAR;
 }
-{PINTAR}{ESPACIO}{COLOR}{ESPACIO}{EN}{ESPACIO}{IDENTIFICADOR}{CORCHETEA}{INDICE}{CORCHETEC}{FINAL} { 
-    lexeme = yytext(); 
-    return PINTAR;
-}
-{VACIAR}{ESPACIO}{IDENTIFICADOR}{FINAL} { 
-    lexeme = yytext(); 
+{VACIAR} {
+    lexeme = yytext();
     return VACIAR;
+}
+{VALOR} | {NUEVOVALOR} | {INDICE} {
+    lexeme = yytext();
+    return DIGITO;
+}
+{COLOR} {
+    lexeme = yytext();
+    return COLOR;
+}
+{A} {
+    lexeme = yytext();
+    return A;
+}
+{EN} {
+    lexeme = yytext();
+    return EN;
+}
+{ARRAY} {
+    lexeme = yytext();
+    return ARRAY;
+}
+{LISTA} {
+    lexeme = yytext();
+    return LISTA;
+}
+{MATRIZ} {
+    lexeme = yytext();
+    return MATRIZ;
+}
+//Indetificadores
+{IDENTIFICADOR} {
+    lexeme = yytext();
+    return IDENTIFICADOR;
+}
+//Simbolos y digitos
+{CORCHETEA} {
+    lexeme = yytext();
+    return CORCHETEA;
+}
+{CORCHETEC} {
+    lexeme = yytext();
+    return CORCHETEC;
+}
+{FINAL} {
+    lexeme = yytext();
+    return FINAL;
+}
+{INDICEMATRIZ} {
+    lexeme = yytext();
+    return INDICE_MATRIZ;
 }
  . {return ERROR;}

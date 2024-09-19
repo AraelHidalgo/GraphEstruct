@@ -16,8 +16,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
-
-*/
+ *
+ */
 public class FrmPrincipal extends javax.swing.JFrame {
 
     /**
@@ -89,71 +89,107 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
     private void btnAnalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnalizarActionPerformed
         // Crear un archivo temporal con la entrada del texto para el lexer
-    File archivo = new File("archivo.txt");
-    PrintWriter escribir;
-    try {
-        escribir = new PrintWriter(archivo);
-        escribir.print(txtEntrada.getText());  // Guardar el texto del campo de entrada en el archivo
-        escribir.close();
-    } catch (FileNotFoundException ex) {
-        Logger.getLogger(FrmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-    }
-
-    try {
-        // Leer el archivo y pasar al lexer
-        Reader lector = new BufferedReader(new FileReader("archivo.txt"));
-        Lexer lexer = new Lexer(lector);
-        StringBuilder resultado = new StringBuilder();  // Utilizamos StringBuilder para construir el resultado
-
-        while (true) {
-            Tokens tokens = lexer.yylex();  // Leer el siguiente token
-            if (tokens == null) {
-                resultado.append("FIN");
-                txtResultado.setText(resultado.toString());  // Mostrar el resultado en el área de texto
-                return;
-            }
-            
-            switch (tokens) {
-                case ERROR:
-                    resultado.append("Símbolo no definido\n");
-                    break;
-                case IDENTIFICADOR:
-                    resultado.append(lexer.lexeme).append(": Es un identificador\n");
-                    break;
-                case CREAR_ARRAY:
-                    resultado.append(lexer.lexeme).append(": Es una instrucción para crear un array\n");
-                    break;
-                case CREAR_LISTA:
-                    resultado.append(lexer.lexeme).append(": Es una instrucción para crear una lista\n");
-                    break;
-                case CREAR_MATRIZ:
-                    resultado.append(lexer.lexeme).append(": Es una instrucción para crear una matriz\n");
-                    break;
-                case ASIGNAR:
-                    resultado.append(lexer.lexeme).append(": Es una instrucción para asignar valores\n");
-                    break;
-                case MODIFICAR:
-                    resultado.append(lexer.lexeme).append(": Es una instrucción para modificar valores\n");
-                    break;
-                case MOSTRAR:
-                    resultado.append(lexer.lexeme).append(": Es una instrucción para mostrar valores\n");
-                    break;
-                case PINTAR:
-                    resultado.append(lexer.lexeme).append(": Es una instrucción para pintar\n");
-                    break;
-                case VACIAR:
-                    resultado.append(lexer.lexeme).append(": Es una instrucción para vaciar la estructura\n");
-                    break;
-                default:
-                    resultado.append("Token: ").append(tokens).append("\n");
-                    break;
-            }
+        File archivo = new File("archivo.txt");
+        PrintWriter escribir;
+        try {
+            escribir = new PrintWriter(archivo);
+            escribir.print(txtEntrada.getText());  // Guardar el texto del campo de entrada en el archivo
+            escribir.close();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(FrmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         }
-    } catch (FileNotFoundException ex) {
-        Logger.getLogger(FrmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-    } catch (IOException ex) {
-        Logger.getLogger(FrmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-    }
+
+        try {
+            // Leer el archivo y pasar al lexer
+            Reader lector = new BufferedReader(new FileReader("archivo.txt"));
+            Lexer lexer = new Lexer(lector);
+            StringBuilder resultado = new StringBuilder();  // Utilizamos StringBuilder para construir el resultado
+
+            while (true) {
+                Tokens tokens = lexer.yylex();  // Leer el siguiente token
+                if (tokens == null) {
+                    resultado.append("FIN");
+                    txtResultado.setText(resultado.toString());  // Mostrar el resultado en el área de texto
+                    return;
+                }
+                switch (tokens) {
+                    case ERROR:
+                        resultado.append("Símbolo no definido\n");
+                        break;
+                    case IDENTIFICADOR:
+                        resultado.append(lexer.lexeme).append(": Es un identificador\n");
+                        break;
+                    case CREAR:
+                        resultado.append(lexer.lexeme).append(": Es una instrucción para crear algo\n");
+                        break;
+                    case ARRAY:
+                        resultado.append(lexer.lexeme).append(": Es una palabra reservada para crear un array\n");
+                        break;
+                    case LISTA:
+                        resultado.append(lexer.lexeme).append(": Es una palabra reservada para crear una lista\n");
+                        break;
+                    case MATRIZ:
+                        resultado.append(lexer.lexeme).append(": Es una palabra reservada para crear una matriz\n");
+                        break;
+                    case ASIGNAR:
+                        resultado.append(lexer.lexeme).append(": Es una instrucción para asignar valores\n");
+                        break;
+                    case MODIFICAR:
+                        resultado.append(lexer.lexeme).append(": Es una instrucción para modificar valores\n");
+                        break;
+                    case ELIMINAR:
+                        resultado.append(lexer.lexeme).append(": Es una instrucción para eliminar\n");
+                        break;
+                    case AGREGAR:
+                        resultado.append(lexer.lexeme).append(": Es una instrucción para agregar\n");
+                        break;
+                    case REMOVER:
+                        resultado.append(lexer.lexeme).append(": Es una instrucción para remover\n");
+                        break;
+                    case PINTAR:
+                        resultado.append(lexer.lexeme).append(": Es una instrucción para pintar\n");
+                        break;
+                    case MOSTRAR:
+                        resultado.append(lexer.lexeme).append(": Es una instrucción para mostrar valores\n");
+                        break;
+                    case VACIAR:
+                        resultado.append(lexer.lexeme).append(": Es una instrucción para vaciar la estructura\n");
+                        break;
+                    case COLOR:
+                        resultado.append(lexer.lexeme).append(": Es un valor de color\n");
+                        break;
+                    case A:
+                        resultado.append(lexer.lexeme).append(": Es la palabra clave 'a'\n");
+                        break;
+                    case EN:
+                        resultado.append(lexer.lexeme).append(": Es la palabra clave 'en'\n");
+                        break;
+                    case CORCHETEA:
+                        resultado.append(lexer.lexeme).append(": Es un corchete abierto '['\n");
+                        break;
+                    case CORCHETEC:
+                        resultado.append(lexer.lexeme).append(": Es un corchete cerrado ']'\n");
+                        break;
+                    case FINAL:
+                        resultado.append(lexer.lexeme).append(": Es un punto y coma ';'\n");
+                        break;
+                    case DIGITO:
+                        resultado.append(lexer.lexeme).append(": Es un valor numérico\n");
+                        break;
+                    case INDICE_MATRIZ:
+                        resultado.append(lexer.lexeme).append(": Es un índice de matriz\n");
+                        break;
+                    default:
+                        resultado.append("Token no reconocido: ").append(tokens).append("\n");
+                        break;
+                }
+
+            }
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(FrmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(FrmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }//GEN-LAST:event_btnAnalizarActionPerformed
 
