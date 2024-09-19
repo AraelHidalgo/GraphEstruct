@@ -1,6 +1,6 @@
-package codigo;
+package analisisLexico;
 
-import static codigo.Tokens.*;
+import static analisisLexico.Tokens.*;
 
 %%
 %class Lexer
@@ -39,6 +39,7 @@ FINAL = ";"
 
 // Definiciones de reglas para reconocer los lexemas
 {ESPACIO} { /* Ignorar espacios en blanco */ }
+[a-zA-Z_][a-zA-Z_0-9]* { return Tokens.IDENTIFICADOR; }
 {CREAR}{ESPACIO}{ARRAY}{ESPACIO}{IDENTIFICADOR}{CORCHETEA}{INDICE}{CORCHETEC}{FINAL} {
     lexeme = yytext();
     return CREAR_ARRAY;
@@ -83,3 +84,4 @@ FINAL = ";"
     lexeme = yytext(); 
     return VACIAR;
 }
+ . {return ERROR;}

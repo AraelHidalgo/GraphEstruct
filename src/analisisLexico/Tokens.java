@@ -9,6 +9,7 @@ package analisisLexico;
  * @author araelhidalgojuarez
  */
 public enum Tokens {
+    IDENTIFICADOR,
     CREAR_ARRAY,
     CREAR_MATRIZ,
     CREAR_LISTA, 
@@ -19,5 +20,6 @@ public enum Tokens {
     ELIMINAR_MATRIZ,
     MOSTRAR,
     PINTAR,
-    VACIAR
+    VACIAR,
+    ERROR
 }

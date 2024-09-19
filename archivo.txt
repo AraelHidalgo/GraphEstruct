@@ -1,0 +1,1 @@
+Crear array MiArray1[1];
