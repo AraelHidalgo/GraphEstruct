@@ -12,5 +12,12 @@ public enum Tokens {
     CREAR_ARRAY,
     CREAR_MATRIZ,
     CREAR_LISTA, 
-    MOSTRAR
+    ASIGNAR,
+    MODIFICAR,
+    MODIFICAR_MATRIZ,
+    ELIMINAR,
+    ELIMINAR_MATRIZ,
+    MOSTRAR,
+    PINTAR,
+    VACIAR
 }

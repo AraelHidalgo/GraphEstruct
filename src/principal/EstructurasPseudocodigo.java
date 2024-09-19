@@ -16,7 +16,7 @@ public class EstructurasPseudocodigo {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        String ruta = "/Users/araelhidalgojuarez/NetBeansProjects/EstructurasPseudocodigo/src/Codigo/Lexer.flex";
+        String ruta = "/Users/araelhidalgojuarez/NetBeansProjects/EstructurasPseudocodigo/src/analisisLexico/Lexer.flex";
         generarLexer(ruta);
         
     }

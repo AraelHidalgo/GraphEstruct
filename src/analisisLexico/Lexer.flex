@@ -16,6 +16,7 @@ D = [0-9]
 COMA = ","
 CREAR = "Crear"
 ARRAY = "array"
+LISTA= "lista"
 MOSTRAR = "Mostrar"
 MODIFICAR = "Modificar"
 PINTAR= "pintar"
@@ -34,52 +35,51 @@ VALOR = {D}
 NUEVOVALOR = {D}
 INDICEMATRIZ = {D}{COMA}{D}
 FINAL = ";"
-1
 %%
 
 // Definiciones de reglas para reconocer los lexemas
 {ESPACIO} { /* Ignorar espacios en blanco */ }
 {CREAR}{ESPACIO}{ARRAY}{ESPACIO}{IDENTIFICADOR}{CORCHETEA}{INDICE}{CORCHETEC}{FINAL} {
     lexeme = yytext();
-    return new Symbol(sym.CREAR_ARRAY);
+    return CREAR_ARRAY;
 }
 {CREAR}{ESPACIO}{ARRAY}{ESPACIO}{IDENTIFICADOR}{CORCHETEA}{INDICEMATRIZ}{CORCHETEC}{FINAL} { 
     lexeme = yytext(); 
-    return new Symbol(sym.CREAR_MATRIZ); 
+    return CREAR_MATRIZ; 
 }
 {CREAR}{ESPACIO}{LISTA}{ESPACIO}{IDENTIFICADOR}{CORCHETEA}{INDICE}{CORCHETEC}{FINAL} {
     lexeme = yytext();
-    return new Symbol(sym.CREAR_LISTA);
+    return CREAR_LISTA;
 }
 {ASIGNAR}{ESPACIO}{VALOR}{ESPACIO}{A}{ESPACIO}{IDENTIFICADOR}{CORCHETEA}{INDICE}{CORCHETEC}{FINAL} {
     lexeme = yytext();
-    return new Symbol(sym.ASIGNAR);
+    return ASIGNAR;
 }
 {MODIFICAR}{ESPACIO}{IDENTIFICADOR}{CORCHETEA}{INDICE}{CORCHETEC}{ESPACIO}{A}{ESPACIO}{NUEVOVALOR} {
     lexeme = yytext();
-    return new Symbol(sym.MODIFICAR)
+    return MODIFICAR;
 }
 {MODIFICAR}{ESPACIO}{IDENTIFICADOR}{CORCHETEA}{INDICEMATRIZ}{CORCHETEC}{ESPACIO}{A}{ESPACIO}{NUEVOVALOR} {
     lexeme = yytext();
-    return new Symbol(sym.MODIFICAR_MATRIZ)
+    return MODIFICAR_MATRIZ;
 }
-{ELIMINAR}{ESPACIO}{IDENTIFICADOR}{CORCHETEA}{INDICE}{CORCHETEC}{FINAL}{
+{ELIMINAR}{ESPACIO}{IDENTIFICADOR}{CORCHETEA}{INDICE}{CORCHETEC}{FINAL} {
     lexeme = yytext();
-    return new Symbol(sym.ELIMINAR)
+    return ELIMINAR;
 }
-{ELIMINAR}{ESPACIO}{IDENTIFICADOR}{CORCHETEA}{INDICEMATRIZ}{CORCHETEC}{FINAL}{
+{ELIMINAR}{ESPACIO}{IDENTIFICADOR}{CORCHETEA}{INDICEMATRIZ}{CORCHETEC}{FINAL} {
     lexeme = yytext();
-    return new Symbol(sym.ELIMINAR_MATRIZ)
+    return ELIMINAR_MATRIZ;
 }
-{MOSTRAR}{ESPACIO}{IDENTIFICADOR}{FINAL}{
+{MOSTRAR}{ESPACIO}{IDENTIFICADOR}{FINAL} {
     lexeme = yytext();
-    return new Symbol(sym.MOSTRAR);
+    return MOSTRAR;
 }
-{PINTAR}{ESPACIO}{COLOR}{ESPACIO}{EN}{ESPACIO}{IDENTIFICADOR}{CORCHETEA }{INDICE}{CORCHETEC}{FINAL} { 
+{PINTAR}{ESPACIO}{COLOR}{ESPACIO}{EN}{ESPACIO}{IDENTIFICADOR}{CORCHETEA}{INDICE}{CORCHETEC}{FINAL} { 
     lexeme = yytext(); 
-    return new Symbol(sym.PINTAR);
+    return PINTAR;
 }
 {VACIAR}{ESPACIO}{IDENTIFICADOR}{FINAL} { 
     lexeme = yytext(); 
-    return new Symbol(sym.VACIAR);
+    return VACIAR;
 }
