@@ -1,6 +1,6 @@
-package analisisLexico;
+package analisis;
 
-import static analisisLexico.Tokens.*;
+import static analisis.Tokens.*;
 
 %%
 %class Lexer
@@ -79,9 +79,17 @@ FINAL = ";"
     lexeme = yytext();
     return VACIAR;
 }
-{VALOR} | {NUEVOVALOR} | {INDICE} {
+{NUEVOVALOR} {
     lexeme = yytext();
-    return DIGITO;
+    return NUEVO_VALOR;
+}
+{VALOR} {
+    lexeme = yytext();
+    return VALOR;
+}
+{INDICE} {
+    lexeme = yytext();
+    return INDICE;
 }
 {COLOR} {
     lexeme = yytext();

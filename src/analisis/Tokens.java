@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Enum.java to edit this template
  */
-package analisisLexico;
+package analisis;
 
 /**
  *
@@ -19,7 +19,9 @@ public enum Tokens {
     PINTAR,
     MOSTRAR,
     VACIAR,
-    DIGITO,
+    NUEVO_VALOR,
+    VALOR,
+    INDICE,
     COLOR,
     A,
     EN,

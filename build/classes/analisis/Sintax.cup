@@ -1,0 +1,107 @@
+package analisis;
+
+import java_cup.runtime.Symbol;
+
+parser code
+{:
+    private Symbol s;
+
+    public void syntax_error(Symbol s){
+        this.s = s;
+    }
+
+    public Symbol getS(){
+        return this.s;
+    }
+:};
+
+// Definir los terminales (tokens) que provienen del lexer
+terminal IDENTIFICADOR, CREAR, ASIGNAR, MODIFICAR, ELIMINAR, AGREGAR, REMOVER, PINTAR, MOSTRAR, VACIAR, NUEVO_VALOR,
+    VALOR, INDICE, COLOR, A, EN, ARRAY, LISTA, MATRIZ, CORCHETEA, CORCHETEC, INDICE_MATRIZ, FINAL, ERROR;
+
+// Definir las no-terminales
+non terminal instruccion, crearArray, crearLista, crearMatriz, asignarValorArray, asignarValorMatriz, 
+    modificarArray, modificarMatriz, eliminarArray, eliminarMatriz, agregarValor, removerUltimo, 
+    pintarArray, pintarMatriz, mostrarEstructura, vaciarEstructura;
+
+start with instruccion;
+
+// Producciones
+instruccion ::= 
+    crearArray |
+    crearLista |
+    crearMatriz |
+    asignarValorArray |
+    asignarValorMatriz |
+    modificarArray |
+    modificarMatriz |
+    eliminarArray |
+    eliminarMatriz |
+    agregarValor |
+    removerUltimo |
+    pintarArray |
+    pintarMatriz |
+    mostrarEstructura |
+    vaciarEstructura
+;
+
+// Crear array {IDENTIFICADOR}[{INDICE}];
+crearArray ::= CREAR ARRAY IDENTIFICADOR CORCHETEA INDICE CORCHETEC FINAL
+;
+
+// Crear lista {IDENTIFICADOR}[{opcional INDICE}];
+crearLista ::= CREAR LISTA IDENTIFICADOR CORCHETEA CORCHETEC FINAL |
+               CREAR LISTA IDENTIFICADOR CORCHETEA INDICE CORCHETEC FINAL
+;
+
+// Crear matriz {IDENTIFICADOR}[{INDICE},{INDICE_MATRIZ}];
+crearMatriz ::= CREAR MATRIZ IDENTIFICADOR CORCHETEA INDICE_MATRIZ CORCHETEC FINAL
+;
+
+// Asignar {VALOR} a {IDENTIFICADOR}[{INDICE}];
+asignarValorArray ::= ASIGNAR VALOR A IDENTIFICADOR CORCHETEA INDICE CORCHETEC FINAL
+;
+
+// Asignar {VALOR} a {IDENTIFICADOR}[{INDICE_MATRIZ}];
+asignarValorMatriz ::= ASIGNAR VALOR A IDENTIFICADOR CORCHETEA INDICE_MATRIZ CORCHETEC FINAL
+;
+
+// Modificar {IDENTIFICADOR}[{INDICE}] a {NUEVO_VALOR};
+modificarArray ::= MODIFICAR IDENTIFICADOR CORCHETEA INDICE CORCHETEC A NUEVO_VALOR FINAL
+;
+
+// Modificar {IDENTIFICADOR}[{INDICE_MATRIZ}] a {NUEVO_VALOR};
+modificarMatriz ::= MODIFICAR IDENTIFICADOR CORCHETEA INDICE_MATRIZ CORCHETEC A NUEVO_VALOR FINAL
+;
+
+// Eliminar {IDENTIFICADOR}[{INDICE}];
+eliminarArray ::= ELIMINAR IDENTIFICADOR CORCHETEA INDICE CORCHETEC FINAL
+;
+
+// Eliminar {IDENTIFICADOR}[{INDICE_MATRIZ}];
+eliminarMatriz ::= ELIMINAR IDENTIFICADOR CORCHETEA INDICE_MATRIZ CORCHETEC FINAL
+;
+
+// Agregar {VALOR} a {IDENTIFICADOR};
+agregarValor ::= AGREGAR VALOR A IDENTIFICADOR FINAL
+;
+
+// Remover último de {IDENTIFICADOR};
+removerUltimo ::= REMOVER FINAL IDENTIFICADOR FINAL
+;
+
+// Pintar {COLOR} en {IDENTIFICADOR}[{INDICE}];
+pintarArray ::= PINTAR COLOR EN IDENTIFICADOR CORCHETEA INDICE CORCHETEC FINAL
+;
+
+// Pintar {COLOR} en {IDENTIFICADOR}[{INDICE_MATRIZ}];
+pintarMatriz ::= PINTAR COLOR EN IDENTIFICADOR CORCHETEA INDICE_MATRIZ CORCHETEC FINAL
+;
+
+// Mostrar {IDENTIFICADOR};
+mostrarEstructura ::= MOSTRAR IDENTIFICADOR FINAL
+;
+
+// Vaciar {IDENTIFICADOR};
+vaciarEstructura ::= VACIAR IDENTIFICADOR FINAL
+;

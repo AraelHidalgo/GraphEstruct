@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package analisisLexico;
+package analisis;
 
+import static analisis.Tokens.VALOR;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -173,8 +174,14 @@ public class FrmPrincipal extends javax.swing.JFrame {
                     case FINAL:
                         resultado.append(lexer.lexeme).append(": Es un punto y coma ';'\n");
                         break;
-                    case DIGITO:
-                        resultado.append(lexer.lexeme).append(": Es un valor numérico\n");
+                    case VALOR:
+                        resultado.append(lexer.lexeme).append(": Es un valor\n");
+                        break;
+                    case INDICE:
+                        resultado.append(lexer.lexeme).append(": Es un INDICE\n");
+                        break;
+                    case NUEVO_VALOR:
+                        resultado.append(lexer.lexeme).append(": Es un NUEVO VALOR\n");
                         break;
                     case INDICE_MATRIZ:
                         resultado.append(lexer.lexeme).append(": Es un índice de matriz\n");
