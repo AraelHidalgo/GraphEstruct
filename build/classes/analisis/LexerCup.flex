@@ -25,17 +25,17 @@ ASIGNAR = "Asignar"
 ELIMINAR = "Eliminar"
 AGREGAR = "Agregar"
 REMOVER = "Remover"
+ULTIMO = "ultimo"
+DE = "de"
 EN = "en"
-COLOR = "color"
+COLOR = "rojo" | "verde" | "azul"
 VACIAR = "Vaciar"
 A = "a"
 IDENTIFICADOR = {L}({L}|{D})*
 CORCHETEA = "["
 CORCHETEC = "]"
-ESPACIO = [ \t]+
-INDICE = {D}
-VALOR = {D}
-NUEVOVALOR = {D}
+ESPACIO = " "
+DIGITO = {D}
 INDICEMATRIZ = {D}{COMA}{D}
 FINAL = ";"
 
@@ -50,6 +50,9 @@ FINAL = ";"
 %%
 
 //Palabras clave
+{ESPACIO} {
+    return new Symbol(sym.ESPACIO, yychar, yyline, yytext());
+}
 {CREAR} {
     return new Symbol(sym.CREAR, yychar, yyline, yytext());
 }
@@ -68,6 +71,12 @@ FINAL = ";"
 {REMOVER} {
     return new Symbol(sym.REMOVER, yychar, yyline, yytext());
 }
+{ULTIMO} {
+    return new Symbol(sym.ULTIMO, yychar, yyline, yytext());
+}
+{DE} {
+    return new Symbol(sym.DE, yychar, yyline, yytext());
+}
 {PINTAR} {
     return new Symbol(sym.PINTAR, yychar, yyline, yytext());
 }
@@ -77,14 +86,8 @@ FINAL = ";"
 {VACIAR} {
     return new Symbol(sym.VACIAR, yychar, yyline, yytext());
 }
-{NUEVOVALOR} {
-    return new Symbol(sym.NUEVO_VALOR, yychar, yyline, yytext());
-}
-{VALOR} {
-    return new Symbol(sym.VALOR, yychar, yyline, yytext());
-}
-{INDICE} {
-    return new Symbol(sym.INDICE, yychar, yyline, yytext());
+{DIGITO} {
+    return new Symbol(sym.DIGITO, yychar, yyline, yytext());
 }
 {COLOR} {
     return new Symbol(sym.COLOR, yychar, yyline, yytext());

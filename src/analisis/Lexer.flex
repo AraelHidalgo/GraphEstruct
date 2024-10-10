@@ -25,23 +25,26 @@ ASIGNAR = "Asignar"
 ELIMINAR = "Eliminar"
 AGREGAR = "Agregar"
 REMOVER = "Remover"
+ULTIMO = "ultimo"
+DE = "de"
 EN = "en"
-COLOR = "color"
+COLOR = "rojo" | "verde" | "azul"
 VACIAR = "Vaciar"
 A = "a"
 IDENTIFICADOR = {L}({L}|{D})*
 CORCHETEA = "["
 CORCHETEC = "]"
-ESPACIO = [ ]
-INDICE = {D}
-VALOR = {D}
-NUEVOVALOR = {D}
+ESPACIO = " "
+DIGITO = {D}
 INDICEMATRIZ = {D}{COMA}{D}
 FINAL = ";"
 %%
 
 // Definiciones de reglas para reconocer los lexemas
-{ESPACIO} { /* Ignorar espacios en blanco */ }
+{ESPACIO} { 
+    lexeme = yytext();
+    return ESPACIO; 
+}
 //Palabras clave
 {CREAR} {
     lexeme = yytext();
@@ -67,6 +70,14 @@ FINAL = ";"
     lexeme = yytext();
     return REMOVER;
 }
+{ULTIMO} {
+    lexeme = yytext();
+    return ULTIMO;
+}
+{DE} {
+    lexeme = yytext();
+    return DE;
+}
 {PINTAR} {
     lexeme = yytext();
     return PINTAR;
@@ -79,17 +90,9 @@ FINAL = ";"
     lexeme = yytext();
     return VACIAR;
 }
-{NUEVOVALOR} {
+{DIGITO} {
     lexeme = yytext();
-    return NUEVO_VALOR;
-}
-{VALOR} {
-    lexeme = yytext();
-    return VALOR;
-}
-{INDICE} {
-    lexeme = yytext();
-    return INDICE;
+    return DIGITO;
 }
 {COLOR} {
     lexeme = yytext();

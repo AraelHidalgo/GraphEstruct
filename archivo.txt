@@ -1,1 +1,1 @@
-asdads;
+Crear array miArrary9[1];

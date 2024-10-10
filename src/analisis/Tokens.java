@@ -9,6 +9,7 @@ package analisis;
  * @author araelhidalgojuarez
  */
 public enum Tokens {
+    ESPACIO,
     IDENTIFICADOR,
     CREAR,
     ASIGNAR,
@@ -16,12 +17,12 @@ public enum Tokens {
     ELIMINAR,
     AGREGAR,
     REMOVER,
+    ULTIMO,
+    DE,
     PINTAR,
     MOSTRAR,
     VACIAR,
-    NUEVO_VALOR,
-    VALOR,
-    INDICE,
+    DIGITO,
     COLOR,
     A,
     EN,
