@@ -1,36 +1,28 @@
+cat << 'EOF' > README.md
+# **GraphEstruct** 🎨⚙️  
+![JFlex](https://img.shields.io/badge/JFlex-v1.7.0-blue)
+![JCup](https://img.shields.io/badge/JCup-v11.1-orange)
+![Java](https://img.shields.io/badge/Java-v11.0-red)
+![MIT License](https://img.shields.io/badge/License-MIT-green)
 
-GraphEstruct
+**GraphEstruct** es un proyecto innovador de análisis y visualización de estructuras de datos que facilita la creación, modificación y visualización de **grafos**, **listas** y **matrices**. Desarrollado con **Java**, **JFlex** y **JCup** para ofrecer un análisis léxico y sintáctico eficiente, este proyecto te permitirá trabajar con estructuras de datos complejas y visualizarlas gráficamente de manera dinámica.
 
-Analizador de Estructuras de Datos
+## **🎯 Características principales**  
+- 📊 **Análisis completo** de estructuras de datos como **grafos**, **listas** y **matrices**.
+- 🛠️ **Creación**, **modificación** y **visualización** interactiva de estas estructuras.
+- 🧠 **Análisis léxico y sintáctico** implementado usando **JFlex** y **JCup**.
+- 💻 **Desarrollado en Java**, proporcionando portabilidad y rendimiento.
+- 🎨 **Visualización gráfica** de las estructuras para una mejor comprensión y análisis.
 
-GraphEstruct es un proyecto de análisis de estructuras de datos que permite la creación, modificación y visualización de grafos, listas y matrices. Este proyecto utiliza JFlex y Jcup para el análisis léxico y sintáctico.
+---
 
-Características
-- Análisis de estructuras de datos (grafos, listas, matrices)
-- Creación, modificación y visualización de estructuras
-- Utiliza JFlex y Jcup para análisis léxico y sintáctico
-- Implementación en Java
+## **🚀 Instalación**
 
-Instalación:
-Clona el repositorio: 
+### 1. Clona el repositorio:
+
+```bash
 git clone https://github.com/AraelHidalgo/GraphEstruct.git
-Compila el proyecto: 
-javac *.java
-Ejecuta el programa: 
-java GraphEstruct
 
-Uso:
-Crear estructura: CREAR [TIPO] [NOMBRE]
-Modificar estructura: MODIFICAR [NOMBRE] [VALOR]
-Visualizar estructura: MOSTRAR [NOMBRE]
-Contribución
-
-Reporta errores o sugiere mejoras en la sección de Issues
-Contribuye con código mediante pull requests
-
-Licencia
-Este proyecto está bajo la licencia MIT.
-Autor: Arael Hidalgo Juárez
 
 Contacto
 Correo electrónico: araelhidalgojuarez@gmail.com
