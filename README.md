@@ -19,12 +19,77 @@ cat << 'EOF' > README.md
 ## **🚀 Instalación**
 
 ### 1. Clona el repositorio:
-
 ```bash
 git clone https://github.com/AraelHidalgo/GraphEstruct.git
+```
+### 2. Compila el proyecto:
+```bash
+javac *.java
+```
+### 3. Ejecuta el programa:
+```bash
+java GraphEstruct
+```
+---
 
+## **📚 Uso del programa**  
 
-Contacto
-Correo electrónico: araelhidalgojuarez@gmail.com
+### 📌 Crear una estructura:
 
+CREAR [TIPO] [NOMBRE]
 
+Ejemplo:
+```bash
+Crear array MiArray[5];
+```
+---
+
+### ✏️ Modificar una estructura:
+
+MODIFICAR [NOMBRE] [VALOR]
+
+Ejemplo:
+```bash
+Modificar MiArray[2] a 50;
+```
+---
+
+### 🖼️ Visualizar una estructura:
+
+MOSTRAR [NOMBRE]
+
+Ejemplo:
+```bash
+Mostrar MiArray;
+```
+---
+
+## **🤝 Contribuciones**  
+
+¡Las contribuciones son bienvenidas! 🚀  
+Si encuentras errores o tienes ideas para mejorar, por favor:
+
+- 📂 Reporta errores o sugerencias en la sección de Issues.
+- 🛠️ Contribuye con tu código a través de pull requests.
+
+---
+
+## **📜 Licencia**  
+
+Este proyecto está bajo la licencia MIT.
+
+---
+
+## **👤 Autor**  
+
+Desarrollado con 💻 por Arael Hidalgo Juárez.  
+Sigue mi trabajo en GitHub.
+
+---
+
+## **✨ Vista previa visual de las estructuras**  
+
++---+---+---+  
+| 10| 20| 30|  
++---+---+---+  
+EOF
