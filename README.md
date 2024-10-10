@@ -1,4 +1,4 @@
-cat << 'EOF' > README.md
+
 # **GraphEstruct** 🎨⚙️  
 ![JFlex](https://img.shields.io/badge/JFlex-v1.7.0-blue)
 ![JCup](https://img.shields.io/badge/JCup-v11.1-orange)
