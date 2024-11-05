@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="EstructurasPseudocodigo">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/dist/EstructurasPseudocodigo.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

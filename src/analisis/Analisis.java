@@ -20,11 +20,12 @@ import java.io.StringReader;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java_cup.runtime.Symbol;
+import javax.swing.JFrame;
 
 /**
  *
  */
-public class FrmPrincipal extends javax.swing.JFrame {
+public class Analisis extends javax.swing.JFrame {
 
     /**
      * Creates new form FrmPrincipal
@@ -42,9 +43,9 @@ private void analizarLexico() throws IOException {
     boolean despuesDeAsignar = false; // Estado para saber si el siguiente token es un valor tras 'ASIGNAR'
 
     while (true) {
-        Tokens token = lexer.yylex(); // Analizas el siguiente token
+        Tokens token = lexer.yylex(); // Analizando el siguiente token
         if (token == null) {
-            txtResultadoLex.setText(resultado.toString()); // Muestras el resultado en el área de texto
+            txtResultadoLex.setText(resultado.toString()); // Mostrando el resultado en el área de texto
             return;
         }
         
@@ -133,13 +134,10 @@ private void analizarLexico() throws IOException {
 
     
     
-    public FrmPrincipal() {
+    public Analisis() {
         initComponents();
         this.setLocationRelativeTo(null);
-        Panel fondo = new Panel(500,30);
-        this.add(fondo);
-        fondo.setBounds(450 ,10, 500, 500);
-        
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
 
     /**
@@ -218,6 +216,7 @@ private void analizarLexico() throws IOException {
 
         btnAnalizar.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         btnAnalizar.setText("Analizar");
+        btnAnalizar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAnalizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAnalizarActionPerformed(evt);
@@ -229,8 +228,9 @@ private void analizarLexico() throws IOException {
         txtResultadoLex.setRows(5);
         txtResultadoLex.setToolTipText("");
         txtResultadoLex.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        txtResultadoLex.setPreferredSize(new java.awt.Dimension(230, 90));
+        txtResultadoLex.setRequestFocusEnabled(false);
         jScrollPane1.setViewportView(txtResultadoLex);
+        jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
         jLabel1.setText("Analisis Léxico:");
 
@@ -246,6 +246,7 @@ private void analizarLexico() throws IOException {
 
         btnAnalizarSin.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         btnAnalizarSin.setText("Analizar");
+        btnAnalizarSin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAnalizarSin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAnalizarSinActionPerformed(evt);
@@ -256,6 +257,7 @@ private void analizarLexico() throws IOException {
 
         btnLimpiarLex.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         btnLimpiarLex.setText("Limpiar");
+        btnLimpiarLex.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnLimpiarLex.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLimpiarLexActionPerformed(evt);
@@ -264,6 +266,7 @@ private void analizarLexico() throws IOException {
 
         btnLimpiarSin.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         btnLimpiarSin.setText("Limpiar");
+        btnLimpiarSin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnLimpiarSin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLimpiarSinActionPerformed(evt);
@@ -292,11 +295,11 @@ private void analizarLexico() throws IOException {
                                     .addComponent(btnAnalizar)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(btnLimpiarLex)))
-                            .addComponent(txtEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 394, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(536, Short.MAX_VALUE))
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 394, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -304,7 +307,7 @@ private void analizarLexico() throws IOException {
                 .addGap(10, 10, 10)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -321,7 +324,7 @@ private void analizarLexico() throws IOException {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAnalizarSin)
                     .addComponent(btnLimpiarSin))
-                .addGap(0, 82, Short.MAX_VALUE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         pack();
@@ -331,7 +334,7 @@ private void analizarLexico() throws IOException {
     try {
         analizarLexico();
     } catch (IOException ex) {
-        Logger.getLogger(FrmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        Logger.getLogger(Analisis.class.getName()).log(Level.SEVERE, null, ex);
     }
 
     }//GEN-LAST:event_btnAnalizarActionPerformed
@@ -378,21 +381,23 @@ private void analizarLexico() throws IOException {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrmPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Analisis.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrmPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Analisis.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrmPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Analisis.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrmPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Analisis.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmPrincipal().setVisible(true);
+                new Analisis().setVisible(true);
             }
         });
     }
