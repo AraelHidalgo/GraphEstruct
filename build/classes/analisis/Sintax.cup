@@ -1,9 +1,37 @@
 package analisis;
 
 import java_cup.runtime.Symbol;
+import java.util.HashMap;
 
 parser code
 {:
+    
+
+    // Tus variables y métodos personalizados aquí
+    private Panel panel; // Referencia al panel
+
+    // Método para establecer el panel desde fuera
+    public void setPanel(Panel panel) {
+        this.panel = panel;
+    }
+
+    // Acceso a la instancia del panel desde las acciones del parser
+    public Panel getPanel() {
+        return this.panel;
+    }
+
+    // HashMap para almacenar identificadores y acciones
+    private HashMap<String, String> instrucciones = new HashMap<>();
+
+    public HashMap<String, String> getInstrucciones() {
+        return instrucciones;
+    }
+
+    public void agregarInstruccion(String identificador, String accion) {
+    instrucciones.put(identificador, accion);
+    }
+
+
     private Symbol s;
 
     public void syntax_error(Symbol s){
@@ -47,7 +75,13 @@ instruccion ::=
 
 // Crear array {IDENTIFICADOR}[{INDICE}];
 crearArray ::= CREAR ESPACIO ARRAY ESPACIO IDENTIFICADOR CORCHETEA DIGITO CORCHETEC FINAL
-;
+{:
+    String identificador = ((Symbol)CUP$Sintax$stack.elementAt(CUP$Sintax$top-4)).value.toString();
+    String digitoString = ((Symbol)CUP$Sintax$stack.elementAt(CUP$Sintax$top-2)).value.toString();
+    agregarInstruccion(identificador, "crearArray");
+:};
+
+
 
 // Crear lista {IDENTIFICADOR}[{opcional INDICE}];
 crearLista ::= CREAR ESPACIO LISTA ESPACIO IDENTIFICADOR CORCHETEA CORCHETEC FINAL |

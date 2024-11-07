@@ -4,6 +4,13 @@
  */
 package analisis;
 
+import java.awt.Color;
+import java.io.StringReader;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java_cup.runtime.Symbol;
 import javax.swing.JFrame;
 
 /**
@@ -12,16 +19,26 @@ import javax.swing.JFrame;
  */
 public class Graph extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Graph
-     */
+    private Panel fondo; // Hacer que el panel sea un atributo de la clase
+    private HashMap<String, String> instrucciones = new HashMap<>(); // Mismo HashMap compartido
+
     public Graph() {
         initComponents();
         this.setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        Panel fondo = new Panel(550,20);
+        fondo = new Panel(550, 20); // Inicializar el panel
         this.add(fondo).doLayout();
-        fondo.setBounds(20 ,90, 550, 550);     
+        fondo.setBounds(20, 90, 550, 550); // Ajustar el tamaño y la posición del panel
+    }
+
+    private String obtenerIdentificador(String entrada) {
+        // Utiliza una expresión regular para capturar un identificador entre palabras clave específicas
+        Pattern pattern = Pattern.compile("(?i)\\bcrear\\s+array\\s+(\\w+)\\s*\\[");
+        Matcher matcher = pattern.matcher(entrada);
+        if (matcher.find()) {
+            return matcher.group(1).trim(); // Devuelve el primer grupo que coincide (el identificador)
+        }
+        return ""; // Devuelve una cadena vacía si no se encuentra un identificador
     }
 
     /**
@@ -33,58 +50,118 @@ public class Graph extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        BtnEjecutarE = new javax.swing.JButton();
-        txtEjecutar = new javax.swing.JTextField();
+        jLabelEntrada = new javax.swing.JLabel();
+        BtnEjecutar = new javax.swing.JButton();
+        txtEntrada = new javax.swing.JTextField();
+        txtResultado = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(51, 0, 51));
 
-        jLabel1.setText("Entrada: ");
+        jLabelEntrada.setText("Entrada: ");
 
-        BtnEjecutarE.setText("EJECUTAR");
-        BtnEjecutarE.addActionListener(new java.awt.event.ActionListener() {
+        BtnEjecutar.setText("EJECUTAR");
+        BtnEjecutar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnEjecutarEActionPerformed(evt);
+                BtnEjecutarActionPerformed(evt);
             }
         });
 
-        txtEjecutar.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        txtEntrada.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+
+        txtResultado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtResultadoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(12, 12, 12)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtEjecutar, javax.swing.GroupLayout.DEFAULT_SIZE, 426, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
-                        .addComponent(BtnEjecutarE, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabelEntrada)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtResultado)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtEntrada, javax.swing.GroupLayout.DEFAULT_SIZE, 426, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(BtnEjecutar, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(12, 12, 12))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addGap(2, 2, 2)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(BtnEjecutarE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtEjecutar, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE))
-                .addContainerGap(577, Short.MAX_VALUE))
+                .addGap(12, 12, 12)
+                .addComponent(jLabelEntrada)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(BtnEjecutar, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 564, Short.MAX_VALUE)
+                .addComponent(txtResultado, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void BtnEjecutarEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEjecutarEActionPerformed
+    private void BtnEjecutarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEjecutarActionPerformed
+        String entrada = txtEntrada.getText();
+        Sintax parser = new Sintax(new LexerCup(new StringReader(entrada)));
+
+        // Pasa la referencia del HashMap compartido al parser
+        parser.setInstrucciones(instrucciones);
+
+        // Pasa la referencia del panel al parser
+        parser.setPanel(fondo);
+
+        // Verifica si el identificador ya existe
+        String identificador = obtenerIdentificador(entrada);
+        System.out.println("Identificadores existentes: " + parser.getInstrucciones().keySet());
+
+        System.out.println("Identificador capturado antes de la verificación: " + identificador);
+
+        // Verifica si el identificador ya existe antes de ejecutar el parseo
+        if (instrucciones.containsKey(identificador)) {
+            txtResultado.setText("Error: El identificador '" + identificador + "' ya existe.");
+            System.out.println("Error: Intento de agregar un identificador ya existente: " + identificador);
+            return; // Detiene la ejecución si el identificador ya existe
+        }
+
+        try {
+            System.out.println("Identificadores existentes (antes de parsear): " + instrucciones.keySet());
+            parser.parse();
+            System.out.println("Identificadores existentes (después de parsear): " + instrucciones.keySet());
+
+            txtResultado.setText("Instrucciones ejecutadas correctamente");
+            // Aquí puedes agregar lógica para actualizar el panel si es necesario
+            fondo.repaint();
+        } catch (Exception ex) {
+            Symbol sym = parser.getS();
+            if (sym != null) {
+                txtResultado.setText("Error de sintaxis en línea: " + (sym.right + 1));
+            } else {
+                txtResultado.setText("Error de sintaxis: no se pudo determinar la ubicación del error.");
+            }
+            ex.printStackTrace();
+        }
+
+    }//GEN-LAST:event_BtnEjecutarActionPerformed
+
+    private void txtResultadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtResultadoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_BtnEjecutarEActionPerformed
+    }//GEN-LAST:event_txtResultadoActionPerformed
+
+    private int obtenerTamanoArray(String identificador) {
+        // Implementa tu lógica para extraer el tamaño del array a partir del identificador o de la entrada.
+        return 10; // Ejemplo, reemplaza con la lógica real
+    }
 
     /**
      * @param args the command line arguments
@@ -122,8 +199,9 @@ public class Graph extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton BtnEjecutarE;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JTextField txtEjecutar;
+    private javax.swing.JButton BtnEjecutar;
+    private javax.swing.JLabel jLabelEntrada;
+    private javax.swing.JTextField txtEntrada;
+    private javax.swing.JTextField txtResultado;
     // End of variables declaration//GEN-END:variables
 }
