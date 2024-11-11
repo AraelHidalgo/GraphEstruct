@@ -440,12 +440,40 @@ class CUP$Sintax$actions {
             /*. . . . . . . . . . . . . . . . . . . .*/
             case 28: // pintarArray ::= PINTAR ESPACIO COLOR ESPACIO EN ESPACIO IDENTIFICADOR CORCHETEA DIGITO CORCHETEC FINAL 
             {
-                Object RESULT = null;
+                // Obtener el color
+                String colorToken = (String) ((java_cup.runtime.Symbol) CUP$Sintax$stack.elementAt(CUP$Sintax$top - 8)).value; // Color como String
+                Color color;
 
+                // Mapear el token de color a un objeto Color
+                switch (colorToken) {
+                    case "rojo":
+                        color = Color.RED;
+                        break;
+                    case "verde":
+                        color = Color.GREEN;
+                        break;
+                    case "azul":
+                        color = Color.BLUE;
+                        break;
+                    default:
+                        color = Color.GRAY; // Color por defecto si no se reconoce
+                        break;
+                }
+
+                // Obtener el identificador y el índice
+                String identificador = (String) ((java_cup.runtime.Symbol) CUP$Sintax$stack.elementAt(CUP$Sintax$top - 4)).value; // Identificador
+                int indice = (Integer) ((java_cup.runtime.Symbol) CUP$Sintax$stack.elementAt(CUP$Sintax$top - 2)).value; // Índice
+
+                // Obtener la instancia del panel
+                Panel panel = parser.getPanel(); // Aquí debes obtener la referencia a tu panel
+
+                // Llamar al método para pintar la celda
+                panel.pintarCeldaPorIdentificador(identificador, indice, color);
+
+                Object RESULT = null;
                 CUP$Sintax$result = parser.getSymbolFactory().newSymbol("pintarArray", 12, ((java_cup.runtime.Symbol) CUP$Sintax$stack.elementAt(CUP$Sintax$top - 10)), ((java_cup.runtime.Symbol) CUP$Sintax$stack.peek()), RESULT);
             }
             return CUP$Sintax$result;
-
             /*. . . . . . . . . . . . . . . . . . . .*/
             case 27: // removerUltimo ::= REMOVER ESPACIO ULTIMO ESPACIO DE ESPACIO IDENTIFICADOR FINAL 
             {

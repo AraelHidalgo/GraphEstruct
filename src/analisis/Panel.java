@@ -92,8 +92,10 @@ public class Panel extends JPanel {
             }
             repaint();
             System.out.println("Celdas asociadas al identificador '" + identificador + "' vaciadas.");
+            
         } else {
             System.out.println("Error: No se encontraron celdas asociadas al identificador '" + identificador + "'.");
+            
         }
     }
 
@@ -341,6 +343,20 @@ public class Panel extends JPanel {
         celdasPorIdentificador.put(identificador, celdas);
 
         repaint(); // Asegúrate de repintar el panel después de hacer cambios
+    }
+
+    public void pintarCeldaPorIdentificador(String identificador, int indice, Color color) {
+        List<int[]> celdas = celdasPorIdentificador.get(identificador);
+        if (celdas != null && indice >= 0 && indice < celdas.size()) {
+            int[] celda = celdas.get(indice);
+            int x = celda[0]; // fila
+            int y = celda[1]; // columna
+
+            // Cambiar el color de la celda
+            cambiarColorCelda(x, y, color);
+        } else {
+            System.out.println("Error: Identificador no encontrado o índice fuera de rango.");
+        }
     }
 
     // Método para cambiar el color de una celda específica

@@ -7,6 +7,7 @@
             <file>file:/Users/araelhidalgojuarez/NetBeansProjects/EstructurasPseudocodigo/src/analisis/LexerCup.flex</file>
             <file>file:/Users/araelhidalgojuarez/NetBeansProjects/EstructurasPseudocodigo/src/analisis/Analisis.java</file>
             <file>file:/Users/araelhidalgojuarez/NetBeansProjects/EstructurasPseudocodigo/src/analisis/sym.java</file>
+            <file>file:/Users/araelhidalgojuarez/NetBeansProjects/EstructurasPseudocodigo/src/analisis/Celda.java</file>
             <file>file:/Users/araelhidalgojuarez/NetBeansProjects/EstructurasPseudocodigo/src/analisis/Lexer.java</file>
             <file>file:/Users/araelhidalgojuarez/NetBeansProjects/EstructurasPseudocodigo/src/analisis/Sintax.java</file>
             <file>file:/Users/araelhidalgojuarez/NetBeansProjects/EstructurasPseudocodigo/src/analisis/Sintax.cup</file>
@@ -16,6 +17,7 @@
             <file>file:/Users/araelhidalgojuarez/NetBeansProjects/EstructurasPseudocodigo/src/analisis/Graph.java</file>
             <file>file:/Users/araelhidalgojuarez/NetBeansProjects/EstructurasPseudocodigo/src/analisis/FramePrincipal.java</file>
             <file>file:/Users/araelhidalgojuarez/NetBeansProjects/EstructurasPseudocodigo/src/analisis/Panel.java</file>
+            <file>file:/Users/araelhidalgojuarez/NetBeansProjects/EstructurasPseudocodigo/src/analisis/ZoomPanel.java</file>
             <file>file:/Users/araelhidalgojuarez/NetBeansProjects/EstructurasPseudocodigo/src/Imagenes/Diseño%20sin%20título-3.png</file>
         </group>
     </open-files>

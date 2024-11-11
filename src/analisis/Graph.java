@@ -227,7 +227,7 @@ public class Graph extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnEjecutar;
     private javax.swing.JLabel jLabelEntrada;
-    private javax.swing.JTextField txtEntrada;
-    private javax.swing.JTextField txtResultado;
+    public javax.swing.JTextField txtEntrada;
+    public javax.swing.JTextField txtResultado;
     // End of variables declaration//GEN-END:variables
 }
