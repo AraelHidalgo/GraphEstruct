@@ -48,7 +48,7 @@ terminal ESPACIO, IDENTIFICADOR, CREAR, ASIGNAR, MODIFICAR, ELIMINAR, AGREGAR, R
 , ULTIMO, DE, COLOR, A, EN, ARRAY, LISTA, MATRIZ, CORCHETEA, CORCHETEC, INDICE_MATRIZ, FINAL, ERROR;
 
 // Definir las no-terminales
-non terminal instruccion, crearArray, crearLista, crearMatriz, asignarValorArray, asignarValorMatriz, 
+non terminal instruccion, crearArray, crearLista, asignarValorArray, asignarValorMatriz, 
     modificarArray, modificarMatriz, eliminarArray, eliminarMatriz, agregarValor, removerUltimo, 
     pintarArray, pintarMatriz, mostrarEstructura, vaciarEstructura;
 
@@ -58,7 +58,6 @@ start with instruccion;
 instruccion ::= 
     crearArray |
     crearLista |
-    crearMatriz |
     asignarValorArray |
     asignarValorMatriz |
     modificarArray |
@@ -86,10 +85,6 @@ crearArray ::= CREAR ESPACIO ARRAY ESPACIO IDENTIFICADOR CORCHETEA DIGITO CORCHE
 // Crear lista {IDENTIFICADOR}[{opcional INDICE}];
 crearLista ::= CREAR ESPACIO LISTA ESPACIO IDENTIFICADOR CORCHETEA CORCHETEC FINAL |
                CREAR ESPACIO LISTA ESPACIO IDENTIFICADOR CORCHETEA DIGITO CORCHETEC FINAL
-;
-
-// Crear matriz {IDENTIFICADOR}[{INDICE},{INDICE_MATRIZ}];
-crearMatriz ::= CREAR ESPACIO MATRIZ ESPACIO IDENTIFICADOR CORCHETEA INDICE_MATRIZ CORCHETEC FINAL
 ;
 
 // Asignar {VALOR} a {IDENTIFICADOR}[{INDICE}];

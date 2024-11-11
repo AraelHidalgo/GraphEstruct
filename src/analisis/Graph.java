@@ -29,14 +29,15 @@ public class Graph extends javax.swing.JFrame {
         fondo = new Panel(550, 20); // Inicializar el panel
         this.add(fondo).doLayout();
         fondo.setBounds(20, 90, 550, 550); // Ajustar el tamaño y la posición del panel
+//        fondo.pintarMatriz(2, 2, Color.yellow, "ASd");
     }
 
     private String obtenerIdentificador(String entrada) {
-        // Utiliza una expresión regular para capturar un identificador entre palabras clave específicas
-        Pattern pattern = Pattern.compile("(?i)\\bcrear\\s+array\\s+(\\w+)\\s*\\[");
+        // Expresión regular para capturar un identificador en diferentes instrucciones
+        Pattern pattern = Pattern.compile("(?i)\\bcrear\\s+(array|lista|matriz)\\s+(\\w+)\\s*\\[");
         Matcher matcher = pattern.matcher(entrada);
         if (matcher.find()) {
-            return matcher.group(1).trim(); // Devuelve el primer grupo que coincide (el identificador)
+            return matcher.group(2).trim(); // Devuelve el segundo grupo que coincide (el identificador)
         }
         return ""; // Devuelve una cadena vacía si no se encuentra un identificador
     }
@@ -133,25 +134,50 @@ public class Graph extends javax.swing.JFrame {
             System.out.println("Error: Intento de agregar un identificador ya existente: " + identificador);
             return; // Detiene la ejecución si el identificador ya existe
         }
-
+//        if (Verifica si se crea la matriz){
+//}else{            
+        parser.analizarEntrada(entrada);
         try {
             System.out.println("Identificadores existentes (antes de parsear): " + instrucciones.keySet());
-            parser.parse();
+            Symbol result = parser.parse();
             System.out.println("Identificadores existentes (después de parsear): " + instrucciones.keySet());
 
-            txtResultado.setText("Instrucciones ejecutadas correctamente");
+            // Obtén el resultado del análisis y muestra el mensaje en txtResultado
+            if (result.value != null) {
+                txtResultado.setText(result.value.toString());
+            } else {
+                txtResultado.setText("Instrucciones ejecutadas correctamente");
+            }
+
             // Aquí puedes agregar lógica para actualizar el panel si es necesario
             fondo.repaint();
         } catch (Exception ex) {
             Symbol sym = parser.getS();
             if (sym != null) {
                 txtResultado.setText("Error de sintaxis en línea: " + (sym.right + 1));
-            } else {
+//            } else if (parser.isMatrizCreadaExitosamente()) {
+//                {
+//                    
+//                    txtResultado.setText("\nMatriz creada exitosamente.");
+//                    txtResultado.setForeground(new Color(0, 128, 0)); // Color verde oscuro para éxito
+//                    // Extrae filas y columnas de la entrada o del parser
+////            String[] partes = entrada.split("[\\[\\],;]");
+////
+////            int filas = Integer.parseInt(partes[1].trim()); // Obtiene el número de filas
+////            int columnas = Integer.parseInt(partes[2].trim()); // Obtiene el número de columnas
+////
+////            // Llama al método crearMatriz en el panel
+//////                fondo.pintarMatriz(filas, columnas, Color.yellow, identificador);
+////            // Muestra un mensaje de éxito
+////            txtResultado.setText("Matriz '" + identificador + "' de " + filas + "x" + columnas + " creada.");
+////            System.out.println("Matriz '" + identificador + "' de " + filas + "x" + columnas + " creada.");
+//                }
+//            } else {
                 txtResultado.setText("Error de sintaxis: no se pudo determinar la ubicación del error.");
             }
             ex.printStackTrace();
         }
-
+//}
     }//GEN-LAST:event_BtnEjecutarActionPerformed
 
     private void txtResultadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtResultadoActionPerformed

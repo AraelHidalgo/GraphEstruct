@@ -250,6 +250,16 @@ public class Sintax extends java_cup.runtime.lr_parser {
     public Panel getPanel() {
         return this.panel;
     }
+    private boolean matrizCreadaExitosamente = false;
+
+// Método para marcar que la matriz fue creada exitosamente
+    public void setMatrizCreadaExitosamente() {
+        this.matrizCreadaExitosamente = true;
+    }
+
+    public boolean isMatrizCreadaExitosamente() {
+        return matrizCreadaExitosamente;
+    }
 
     public void setInstrucciones(HashMap<String, String> instrucciones) {
         this.instrucciones = instrucciones;
@@ -258,6 +268,64 @@ public class Sintax extends java_cup.runtime.lr_parser {
 
     // HashMap para almacenar identificadores y acciones
     private HashMap<String, String> instrucciones = new HashMap<>();
+
+    // Método para manejar la creación de una matriz directamente en Java
+    public void crearMatriz(String identificador, int filas, int columnas) {
+        if (filas > 0 && columnas > 0) {
+            agregarInstruccion(identificador, "crearMatriz");
+            System.out.println("Matriz '" + identificador + "' de " + filas + "x" + columnas + " creada.");
+            setMatrizCreadaExitosamente(); // Marca el éxito de la creación de la matriz
+
+            // Llama al método para pintar la matriz en el panel
+            Panel panel = getPanel();
+            if (panel != null) {
+                Color color = panel.generarColorAleatorio(); // Genera un color aleatorio para la matriz
+                panel.pintarMatriz(filas, columnas, color, identificador); // Pinta la matriz
+            }
+        } else {
+            System.out.println("Error: Las dimensiones deben ser mayores que cero.");
+        }
+    }
+
+    // Método para analizar la entrada de forma manual
+    public void analizarEntrada(String entrada) {
+        // Expresión regular para verificar estructura general de la instrucción
+        if (entrada.matches("(?i)\\s*crear\\s+matriz\\s+\\w+\\s*\\[\\d+\\s*,\\s*\\d+\\s*];?\\s*")) {
+            try {
+                // Dividimos la entrada en partes
+                String[] partes = entrada.split("[\\[\\],;]");
+
+                // Obtenemos las palabras de la primera parte para el identificador
+                String[] palabras = partes[0].trim().split("\\s+");
+                if (palabras.length < 3) {
+                    System.out.println("Error: Formato de instrucción incorrecto.");
+                    return;
+                }
+
+                String identificador = palabras[2]; // Extraemos el identificador
+
+                // Expresión regular para validar identificador
+                if (!identificador.matches("^[A-Za-z][A-Za-z0-9_]*$")) {
+                    System.out.println("Error: Identificador inválido. Debe comenzar con una letra y puede contener letras, números o '_'.");
+                    return;
+                }
+
+                // Convertimos filas y columnas a enteros
+                int filas = Integer.parseInt(partes[1].trim());
+                int columnas = Integer.parseInt(partes[2].trim());
+
+                // Llamamos al método para crear la matriz
+                crearMatriz(identificador, filas, columnas);
+
+            } catch (NumberFormatException e) {
+                System.out.println("Error: Las dimensiones de la matriz deben ser números enteros.");
+            } catch (ArrayIndexOutOfBoundsException e) {
+                System.out.println("Error: Formato de instrucción incorrecto.");
+            }
+        } else {
+            System.out.println("La instruccion no es una matriz");
+        }
+    }
 
     public HashMap<String, String> getInstrucciones() {
         return instrucciones;
@@ -342,13 +410,23 @@ class CUP$Sintax$actions {
 
 
             /*. . . . . . . . . . . . . . . . . . . .*/
-            case 30: // mostrarEstructura ::= MOSTRAR ESPACIO IDENTIFICADOR FINAL 
+            case 30: // mostrarEstructura ::= MOSTRAR ESPACIO IDENTIFICADOR FINAL
             {
                 Object RESULT = null;
+                String identificador = ((Symbol) CUP$Sintax$stack.elementAt(CUP$Sintax$top - 1)).value.toString();
+
+                Panel panel = parser.getPanel();
+                if (panel != null) {
+                    panel.zoomEnCeldasPorIdentificador(identificador);
+                    RESULT = "Se ha hecho zoom en las celdas asociadas al identificador '" + identificador + "'.";
+                } else {
+                    RESULT = "Error: Panel no disponible.";
+                }
 
                 CUP$Sintax$result = parser.getSymbolFactory().newSymbol("mostrarEstructura", 14, ((java_cup.runtime.Symbol) CUP$Sintax$stack.elementAt(CUP$Sintax$top - 3)), ((java_cup.runtime.Symbol) CUP$Sintax$stack.peek()), RESULT);
             }
             return CUP$Sintax$result;
+
 
             /*. . . . . . . . . . . . . . . . . . . .*/
             case 29: // pintarMatriz ::= PINTAR ESPACIO COLOR ESPACIO EN ESPACIO IDENTIFICADOR CORCHETEA INDICE_MATRIZ CORCHETEC FINAL 
@@ -396,13 +474,39 @@ class CUP$Sintax$actions {
             return CUP$Sintax$result;
 
             /*. . . . . . . . . . . . . . . . . . . .*/
-            case 24: // eliminarArray ::= ELIMINAR ESPACIO IDENTIFICADOR CORCHETEA DIGITO CORCHETEC FINAL 
+            case 24: // eliminarArray ::= ELIMINAR ESPACIO IDENTIFICADOR CORCHETEA DIGITO CORCHETEC FINAL
             {
                 Object RESULT = null;
+
+                String identificador = ((Symbol) CUP$Sintax$stack.elementAt(CUP$Sintax$top - 4)).value.toString();
+                String indiceString = ((Symbol) CUP$Sintax$stack.elementAt(CUP$Sintax$top - 2)).value.toString();
+
+                try {
+                    int indice = Integer.parseInt(indiceString);
+
+                    // Verifica si el identificador existe en las instrucciones
+                    if (parser.getInstrucciones().containsKey(identificador)) {
+                        Panel panel = parser.getPanel();
+                        if (panel != null) {
+                            // Lógica para eliminar el valor en la visualización correspondiente
+                            panel.eliminarCeldaEnArray(identificador, indice); // Método que deberías implementar en Panel
+                            RESULT = "Celda en " + identificador + "[" + indice + "] eliminada.";
+                        } else {
+                            RESULT = "Error: Panel no disponible.";
+                        }
+                    } else {
+                        RESULT = "Error: El identificador '" + identificador + "' no existe.";
+                    }
+                } catch (NumberFormatException e) {
+                    RESULT = "Error: El índice no es un número válido.";
+                } catch (Exception e) {
+                    RESULT = "Error al eliminar la celda: " + e.getMessage();
+                }
 
                 CUP$Sintax$result = parser.getSymbolFactory().newSymbol("eliminarArray", 8, ((java_cup.runtime.Symbol) CUP$Sintax$stack.elementAt(CUP$Sintax$top - 6)), ((java_cup.runtime.Symbol) CUP$Sintax$stack.peek()), RESULT);
             }
             return CUP$Sintax$result;
+
 
             /*. . . . . . . . . . . . . . . . . . . .*/
             case 23: // modificarMatriz ::= MODIFICAR ESPACIO IDENTIFICADOR CORCHETEA INDICE_MATRIZ CORCHETEC ESPACIO A ESPACIO DIGITO FINAL 
@@ -456,29 +560,31 @@ class CUP$Sintax$actions {
                 String identificador = ((Symbol) CUP$Sintax$stack.elementAt(CUP$Sintax$top - 4)).value.toString();
                 String digitoString = ((Symbol) CUP$Sintax$stack.elementAt(CUP$Sintax$top - 2)).value.toString();
 
-                System.out.println("Valor extraído de la pila: " + digitoString);
+                if (parser.getInstrucciones().containsKey(identificador)) {
+                    RESULT = "Error: El identificador '" + identificador + "' ya existe.";
+                } else {
+                    try {
+                        int tamano = Integer.parseInt(digitoString.trim());
 
-                try {
-                    int tamano = Integer.parseInt(digitoString.trim());
-
-                    if (identificador != null && tamano > 0) {
-                        parser.agregarInstruccion(identificador, "crearArray");
-                        System.out.println("Instrucción 'crearArray' añadida con éxito.");
-
-                        // Accede al panel y cambia las celdas de color
-                        Panel panel = parser.getPanel();
-                        if (panel != null) {
-                            panel.llenarCeldasAleatorias(tamano, panel.generarColorAleatorio(), identificador); // Puedes cambiar el color si lo deseas
+                        if (identificador != null && tamano > 0) {
+                            parser.agregarInstruccion(identificador, "crearLista");
+                            Panel panel = parser.getPanel();
+                            if (panel != null) {
+                                panel.llenarCeldasAleatorias(tamano, panel.generarColorAleatorio(), identificador);
+                            }
+                            RESULT = "Lista '" + identificador + "' creada exitosamente.";
+                        } else {
+                            RESULT = "Error: el identificador o el tamaño no es válido.";
                         }
-                    } else {
-                        System.out.println("Error: el identificador o el tamaño no es válido.");
+                    } catch (NumberFormatException e) {
+                        RESULT = "Error: el tamaño no es un número válido.";
                     }
-                } catch (NumberFormatException e) {
-                    System.out.println("Error: el tamaño no es un número válido.");
                 }
+
                 CUP$Sintax$result = parser.getSymbolFactory().newSymbol("crearLista", 2, ((java_cup.runtime.Symbol) CUP$Sintax$stack.elementAt(CUP$Sintax$top - 8)), ((java_cup.runtime.Symbol) CUP$Sintax$stack.peek()), RESULT);
             }
             return CUP$Sintax$result;
+
 
             /*. . . . . . . . . . . . . . . . . . . .*/
             case 17: // crearLista ::= CREAR ESPACIO LISTA ESPACIO IDENTIFICADOR CORCHETEA CORCHETEC FINAL 

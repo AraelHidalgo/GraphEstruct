@@ -5,8 +5,10 @@
  */
 package analisis;
 
-
+import static analisis.Tokens.AGREGAR;
+import static analisis.Tokens.CORCHETEC;
 import static analisis.Tokens.DIGITO;
+import static analisis.Tokens.EN;
 import static analisis.Tokens.REMOVER;
 import java.awt.Color;
 import java.io.BufferedReader;
@@ -30,110 +32,107 @@ public class Analisis extends javax.swing.JFrame {
     /**
      * Creates new form FrmPrincipal
      */
-    
-private void analizarLexico() throws IOException {
-    int cont = 1;
+    private void analizarLexico() throws IOException {
+        int cont = 1;
 
-    // Aquí obtienes el texto del área de texto
-    String expr = (String) txtEntrada.getText();
-    Lexer lexer = new Lexer(new StringReader(expr)); // Instancias el lexer
-    StringBuilder resultado = new StringBuilder("LINEA " + cont + "\t\tSIMBOLO\n"); // Usamos StringBuilder para eficiencia
+        // Aquí obtienes el texto del área de texto
+        String expr = (String) txtEntrada.getText();
+        Lexer lexer = new Lexer(new StringReader(expr)); // Instancias el lexer
+        StringBuilder resultado = new StringBuilder("LINEA " + cont + "\t\tSIMBOLO\n"); // Usamos StringBuilder para eficiencia
 
-    boolean dentroCorchetes = false;  // Estado para saber si estamos dentro de corchetes
-    boolean despuesDeAsignar = false; // Estado para saber si el siguiente token es un valor tras 'ASIGNAR'
+        boolean dentroCorchetes = false;  // Estado para saber si estamos dentro de corchetes
+        boolean despuesDeAsignar = false; // Estado para saber si el siguiente token es un valor tras 'ASIGNAR'
 
-    while (true) {
-        Tokens token = lexer.yylex(); // Analizando el siguiente token
-        if (token == null) {
-            txtResultadoLex.setText(resultado.toString()); // Mostrando el resultado en el área de texto
-            return;
-        }
-        
-        switch (token) {
-            case ERROR:
-                resultado.append("Símbolo no definido: ").append(lexer.lexeme).append("\n");
-                break;
-            case IDENTIFICADOR:
-                resultado.append(lexer.lexeme).append(": Es un identificador\n");
-                break;
-            case CREAR:
-                resultado.append(lexer.lexeme).append(": Es una instrucción para crear una estructura\n");
-                break;
-            case ARRAY:
-                resultado.append(lexer.lexeme).append(": Es una palabra reservada para crear un array\n");
-                break;
-            case LISTA:
-                resultado.append(lexer.lexeme).append(": Es una palabra reservada para crear una lista\n");
-                break;
-            case MATRIZ:
-                resultado.append(lexer.lexeme).append(": Es una palabra reservada para crear una matriz\n");
-                break;
-            case ASIGNAR:
-                resultado.append(lexer.lexeme).append(": Es una instrucción para asignar valores\n");
-                break;
-            case MODIFICAR:
-                resultado.append(lexer.lexeme).append(": Es una instrucción para modificar valores\n");
-                break;
-            case ELIMINAR:
-                resultado.append(lexer.lexeme).append(": Es una instrucción para eliminar\n");
-                break;
-            case AGREGAR:
-                resultado.append(lexer.lexeme).append(": Es una instrucción para agregar\n");
-                break;
-            case REMOVER:
-                resultado.append(lexer.lexeme).append(": Es una instrucción para remover\n");
-                break;
-            case ULTIMO:
-                resultado.append(lexer.lexeme).append(": Es una palabra reservada para la instruccion de remover\n");
-                break;
-            case DE:
-                resultado.append(lexer.lexeme).append(":  Es una palabra reservada para la instruccion de remover\n");
-                break;
-            case PINTAR:
-                resultado.append(lexer.lexeme).append(": Es una instrucción para pintar\n");
-                break;
-            case MOSTRAR:
-                resultado.append(lexer.lexeme).append(": Es una instrucción para mostrar valores\n");
-                break;
-            case VACIAR:
-                resultado.append(lexer.lexeme).append(": Es una instrucción para vaciar la estructura\n");
-                break;
-            case COLOR:
-                resultado.append(lexer.lexeme).append(": Es un valor de color\n");
-                break;
-            case A:
-                resultado.append(lexer.lexeme).append(": Es la palabra clave 'a'\n");
-                break;
-            case EN:
-                resultado.append(lexer.lexeme).append(": Es la palabra clave 'en'\n");
-                break;
-            case CORCHETEA:
-                resultado.append(lexer.lexeme).append(": Es un corchete abierto '['\n");
-                break;
-            case CORCHETEC:
-                resultado.append(lexer.lexeme).append(": Es un corchete cerrado ']'\n");
-                break;
-            case FINAL:
-                resultado.append(lexer.lexeme).append(": Es un punto y coma ';'\n");
-                break;
-            case DIGITO:
-                resultado.append(lexer.lexeme).append(": Es un valor numerico que puede representar una matriz, un valor o un valor nuevo\n");
-                break;
-            case ESPACIO:
-                resultado.append(lexer.lexeme).append(": Es un espacio\n");
-                break;
-            case INDICE_MATRIZ:
-                resultado.append(lexer.lexeme).append(": Es un índice de matriz\n");
-                break;
-            default:
-                resultado.append("Token no reconocido: ").append(lexer.lexeme).append("\n");
-                break;
+        while (true) {
+            Tokens token = lexer.yylex(); // Analizando el siguiente token
+            if (token == null) {
+                txtResultadoLex.setText(resultado.toString()); // Mostrando el resultado en el área de texto
+                return;
+            }
+
+            switch (token) {
+                case ERROR:
+                    resultado.append("Símbolo no definido: ").append(lexer.lexeme).append("\n");
+                    break;
+                case IDENTIFICADOR:
+                    resultado.append(lexer.lexeme).append(": Es un identificador\n");
+                    break;
+                case CREAR:
+                    resultado.append(lexer.lexeme).append(": Es una instrucción para crear una estructura\n");
+                    break;
+                case ARRAY:
+                    resultado.append(lexer.lexeme).append(": Es una palabra reservada para crear un array\n");
+                    break;
+                case LISTA:
+                    resultado.append(lexer.lexeme).append(": Es una palabra reservada para crear una lista\n");
+                    break;
+                case MATRIZ:
+                    resultado.append(lexer.lexeme).append(": Es una palabra reservada para crear una matriz\n");
+                    break;
+                case ASIGNAR:
+                    resultado.append(lexer.lexeme).append(": Es una instrucción para asignar valores\n");
+                    break;
+                case MODIFICAR:
+                    resultado.append(lexer.lexeme).append(": Es una instrucción para modificar valores\n");
+                    break;
+                case ELIMINAR:
+                    resultado.append(lexer.lexeme).append(": Es una instrucción para eliminar\n");
+                    break;
+                case AGREGAR:
+                    resultado.append(lexer.lexeme).append(": Es una instrucción para agregar\n");
+                    break;
+                case REMOVER:
+                    resultado.append(lexer.lexeme).append(": Es una instrucción para remover\n");
+                    break;
+                case ULTIMO:
+                    resultado.append(lexer.lexeme).append(": Es una palabra reservada para la instruccion de remover\n");
+                    break;
+                case DE:
+                    resultado.append(lexer.lexeme).append(":  Es una palabra reservada para la instruccion de remover\n");
+                    break;
+                case PINTAR:
+                    resultado.append(lexer.lexeme).append(": Es una instrucción para pintar\n");
+                    break;
+                case MOSTRAR:
+                    resultado.append(lexer.lexeme).append(": Es una instrucción para mostrar valores\n");
+                    break;
+                case VACIAR:
+                    resultado.append(lexer.lexeme).append(": Es una instrucción para vaciar la estructura\n");
+                    break;
+                case COLOR:
+                    resultado.append(lexer.lexeme).append(": Es un valor de color\n");
+                    break;
+                case A:
+                    resultado.append(lexer.lexeme).append(": Es la palabra clave 'a'\n");
+                    break;
+                case EN:
+                    resultado.append(lexer.lexeme).append(": Es la palabra clave 'en'\n");
+                    break;
+                case CORCHETEA:
+                    resultado.append(lexer.lexeme).append(": Es un corchete abierto '['\n");
+                    break;
+                case CORCHETEC:
+                    resultado.append(lexer.lexeme).append(": Es un corchete cerrado ']'\n");
+                    break;
+                case INDICE_MATRIZ:
+                    resultado.append(lexer.lexeme).append(": Es un indice de matriz\n");
+                    break;
+                case FINAL:
+                    resultado.append(lexer.lexeme).append(": Es un punto y coma ';'\n");
+                    break;
+                case DIGITO:
+                    resultado.append(lexer.lexeme).append(": Es un valor numerico que puede representar una matriz, un valor o un valor nuevo\n");
+                    break;
+                case ESPACIO:
+                    resultado.append(lexer.lexeme).append(": Es un espacio\n");
+                    break;
+                default:
+                    resultado.append("Token no reconocido: ").append(lexer.lexeme).append("\n");
+                    break;
+            }
         }
     }
-}
 
-    
-    
     public Analisis() {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -331,28 +330,46 @@ private void analizarLexico() throws IOException {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAnalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnalizarActionPerformed
-    try {
-        analizarLexico();
-    } catch (IOException ex) {
-        Logger.getLogger(Analisis.class.getName()).log(Level.SEVERE, null, ex);
-    }
+        try {
+            analizarLexico();
+        } catch (IOException ex) {
+            Logger.getLogger(Analisis.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }//GEN-LAST:event_btnAnalizarActionPerformed
 
     private void btnAnalizarSinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnalizarSinActionPerformed
-       // TODO add your handling code here:
-    String ST = txtEntrada.getText(); // Obtiene el texto de entrada
-    Sintax s = new Sintax(new LexerCup(new StringReader(ST))); // Crea el analizador sintáctico con el lexer Cup
+        // TODO add your handling code here:
 
-    try {
-        s.parse(); // Ejecuta el análisis sintáctico
-        txtResultadoSin.setText("Análisis realizado correctamente"); // Muestra mensaje si el análisis es exitoso
-        txtResultadoSin.setForeground(new Color(25, 111, 61)); // Cambia color a verde para éxito
-    } catch (Exception ex) {
-        Symbol sym = s.getS(); // Obtiene el símbolo donde ocurrió el error
-        txtResultadoSin.setText("Error de sintaxis. Línea: " + (sym.right + 1) + " Columna: " + (sym.left + 1) + ", Texto: \"" + sym.value + "\"");
-        txtResultadoSin.setForeground(Color.red); // Cambia color a rojo si hay error
-    }
+        // TODO add your handling code here:
+        String entrada = txtEntrada.getText(); // Obtén la entrada del usuario
+        Sintax parser = new Sintax();
+
+        // Llama al método para analizar la entrada manualmente
+        parser.analizarEntrada(entrada);
+        String ST = txtEntrada.getText(); // Obtiene el texto de entrada
+        Sintax s = new Sintax(new LexerCup(new StringReader(ST))); // Crea el analizador sintáctico con el lexer Cup
+
+        try {
+            s.parse(); // Ejecuta el análisis sintáctico
+            txtResultadoSin.setText("Análisis realizado correctamente");
+            txtResultadoSin.setForeground(new Color(25, 111, 61)); // Color verde para éxito
+
+        } catch (Exception ex) {
+            Symbol sym = s.getS(); // Obtiene el símbolo donde ocurrió el error
+            if (sym != null) {
+                txtResultadoSin.setText("Error de sintaxis. Línea: " + (sym.right + 1) + " Columna: " + (sym.left + 1) + ", Texto: \"" + sym.value + "\"");
+                txtResultadoSin.setForeground(Color.red); // Color rojo para error
+            } else if (parser.isMatrizCreadaExitosamente()) {
+                txtResultadoSin.append("\nMatriz creada exitosamente.");
+                txtResultadoSin.setForeground(new Color(0, 128, 0)); // Color verde oscuro para éxito
+            } else {
+                txtResultadoSin.setText("Error de sintaxis no identificado.");
+                txtResultadoSin.setForeground(Color.red); // Color rojo para error
+            }
+
+        }
+
     }//GEN-LAST:event_btnAnalizarSinActionPerformed
 
     private void btnLimpiarLexActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarLexActionPerformed
@@ -362,8 +379,7 @@ private void analizarLexico() throws IOException {
     private void btnLimpiarSinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarSinActionPerformed
         txtResultadoSin.setText(null);
     }//GEN-LAST:event_btnLimpiarSinActionPerformed
-    
-   
+
     /**
      * @param args the command line arguments
      */
