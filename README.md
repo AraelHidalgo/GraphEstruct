@@ -1,5 +1,5 @@
 
-# **GraphEstruct** 🎨⚙️  
+# **StructGraph compiler** 🎨⚙️  
 ![JFlex](https://img.shields.io/badge/JFlex-v1.7.0-blue)
 ![JCup](https://img.shields.io/badge/JCup-v11.1-orange)
 ![Java](https://img.shields.io/badge/Java-v11.0-red)
