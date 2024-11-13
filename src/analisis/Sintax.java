@@ -251,6 +251,7 @@ public class Sintax extends java_cup.runtime.lr_parser {
         return this.panel;
     }
     private boolean matrizCreadaExitosamente = false;
+    private boolean rellenoExitoso = false;
 
 // Método para marcar que la matriz fue creada exitosamente
     public void setMatrizCreadaExitosamente() {
@@ -260,6 +261,14 @@ public class Sintax extends java_cup.runtime.lr_parser {
     public boolean isMatrizCreadaExitosamente() {
         return matrizCreadaExitosamente;
     }
+        public void setrellenoExitoso() {
+        this.rellenoExitoso = true;
+    }
+
+    public boolean isrellenoExitoso() {
+        return rellenoExitoso;
+    }
+
 
     public void setInstrucciones(HashMap<String, String> instrucciones) {
         this.instrucciones = instrucciones;
@@ -286,6 +295,24 @@ public class Sintax extends java_cup.runtime.lr_parser {
             System.out.println("Error: Las dimensiones deben ser mayores que cero.");
         }
     }
+
+    public void rellenarCeldas(String identificador) {
+        Panel panel = getPanel();
+        agregarInstruccion(identificador, "rellenar");
+        setrellenoExitoso();
+        if (panel != null) {
+            
+            // Genera un color (o elige un color específico para el relleno)
+            Color color = panel.generarColorAleatorio();
+
+            // Llama al método que se encargará de rellenar las celdas del identificador en el panel
+            panel.rellenarCeldasPorIdentificador(identificador, color);
+            System.out.println("Celdas del identificador '" + identificador + "' han sido rellenadas.");
+        } else {
+            System.out.println("Error: No se pudo acceder al panel para rellenar celdas.");
+        }
+    }
+
     // Método para analizar la entrada de forma manual
     public void analizarEntrada(String entrada) {
         // Expresión regular para verificar estructura general de la instrucción
@@ -321,8 +348,15 @@ public class Sintax extends java_cup.runtime.lr_parser {
             } catch (ArrayIndexOutOfBoundsException e) {
                 System.out.println("Error: Formato de instrucción incorrecto.");
             }
+        } else if (entrada.matches("(?i)\\s*rellenar\\s+\\w+;\\s*")) {
+            // Lógica para rellenar celdas
+            String[] partes = entrada.split("\\s+");
+            String identificador = partes[1].replace(";", "");
+
+            // Llama al método que rellenará las celdas
+            rellenarCeldas(identificador);
         } else {
-           
+
             System.out.println("");
         }
     }
@@ -484,11 +518,11 @@ class CUP$Sintax$actions {
             return CUP$Sintax$result;
 
             /*. . . . . . . . . . . . . . . . . . . .*/
-            case 26: // agregarValor ::= AGREGAR ESPACIO DIGITO ESPACIO A ESPACIO IDENTIFICADOR FINAL 
+            case 26: // agregarValor ::= "Rellenar" ESPACIO IDENTIFICADOR FINAL 
             {
                 Object RESULT = null;
 
-                CUP$Sintax$result = parser.getSymbolFactory().newSymbol("agregarValor", 10, ((java_cup.runtime.Symbol) CUP$Sintax$stack.elementAt(CUP$Sintax$top - 7)), ((java_cup.runtime.Symbol) CUP$Sintax$stack.peek()), RESULT);
+                CUP$Sintax$result = parser.getSymbolFactory().newSymbol("rellenar", 10, ((java_cup.runtime.Symbol) CUP$Sintax$stack.elementAt(CUP$Sintax$top - 7)), ((java_cup.runtime.Symbol) CUP$Sintax$stack.peek()), RESULT);
             }
             return CUP$Sintax$result;
 

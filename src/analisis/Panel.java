@@ -236,11 +236,25 @@ public class Panel extends JPanel {
         repaint(); // Repinta el panel para mostrar los cambios
     }
 
+    public void rellenarCeldasPorIdentificador(String identificador, Color color) {
+    List<int[]> celdas = celdasPorIdentificador.get(identificador);
+    if (celdas != null) {
+        for (int[] celda : celdas) {
+            int row = celda[0];
+            int col = celda[1];
+            colores[row][col] = color; // Asigna el color de relleno a la celda
+        }
+        repaint(); // Refresca el panel para mostrar los cambios
+    } else {
+        System.out.println("Error: No se encontraron celdas asociadas al identificador '" + identificador + "'.");
+    }
+}
+
     public void zoomEnCeldasPorIdentificador(String identificador) {
         List<int[]> celdas = celdasPorIdentificador.get(identificador);
         if (celdas != null && !celdas.isEmpty()) {
             // Abre una nueva ventana para mostrar las celdas en zoom
-            ZoomPanel zoomWindow = new ZoomPanel(identificador, celdas, new Color(203, 108, 230));
+            ZoomPanel zoomWindow = new ZoomPanel(identificador, celdas, Color.LIGHT_GRAY);
             zoomWindow.setVisible(true);
         } else {
             System.out.println("No se encontraron celdas para el identificador: " + identificador);

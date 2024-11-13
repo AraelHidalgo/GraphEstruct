@@ -22,13 +22,23 @@ public class Graph extends javax.swing.JFrame {
     private Panel fondo; // Hacer que el panel sea un atributo de la clase
     private HashMap<String, String> instrucciones = new HashMap<>(); // Mismo HashMap compartido
 
-    public Graph() {
+//    public Graph() {
+//        initComponents();
+//        this.setLocationRelativeTo(null);
+//        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+//        fondo = new Panel(550, 20); // Inicializar el panel
+//        this.add(fondo).doLayout();
+//        fondo.setBounds(20, 90, 550, 550); // Ajustar el tamaño y la posición del panel
+////        fondo.pintarMatriz(2, 2, Color.yellow, "ASd");
+//    }
+    
+        public Graph() {
         initComponents();
         this.setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        fondo = new Panel(550, 20); // Inicializar el panel
+        fondo = new Panel(450, 20); // Inicializar el panel
         this.add(fondo).doLayout();
-        fondo.setBounds(20, 90, 550, 550); // Ajustar el tamaño y la posición del panel
+        fondo.setBounds(20, 90, 450, 450); // Ajustar el tamaño y la posición del panel
 //        fondo.pintarMatriz(2, 2, Color.yellow, "ASd");
     }
 
@@ -83,19 +93,19 @@ public class Graph extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabelEntrada)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(txtResultado)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabelEntrada)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(txtEntrada, javax.swing.GroupLayout.DEFAULT_SIZE, 426, Short.MAX_VALUE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(BtnEjecutar, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(12, 12, 12))))
+                                .addComponent(txtEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(BtnEjecutar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(txtResultado, javax.swing.GroupLayout.PREFERRED_SIZE, 457, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(12, 12, 12))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -106,7 +116,7 @@ public class Graph extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(BtnEjecutar, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 564, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 464, Short.MAX_VALUE)
                 .addComponent(txtResultado, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -155,13 +165,22 @@ public class Graph extends javax.swing.JFrame {
             fondo.repaint();
         } catch (Exception ex) {
             Symbol sym = parser.getS();
-            if (sym != null) {
+            if (parser.isrellenoExitoso()) {
+                txtResultado.setText("\nRelleno hecho exitosamente.");
+                txtResultado.setForeground(new Color(0, 128, 0)); // Color verde oscuro para éxito
+            } else if (sym != null) {
                 txtResultado.setText("Error de sintaxis. Línea: " + (sym.right + 1) + " Columna: " + (sym.left + 1) + ", Texto: \"" + sym.value + "\"");
                 txtResultado.setForeground(Color.red); // Color rojo para error
+            } else if (parser.isrellenoExitoso()) {
+                txtResultado.setText("\nRelleno hecho exitosamente.");
+                txtResultado.setForeground(new Color(0, 128, 0)); // Color verde oscuro para éxito
+            } else {
+                txtResultado.setText("Error de sintaxis no identificado.");
+                txtResultado.setForeground(Color.red); // Color rojo para error
             }
-        }
+        }   
     }//GEN-LAST:event_BtnEjecutarActionPerformed
-
+    
     private void txtResultadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtResultadoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtResultadoActionPerformed
