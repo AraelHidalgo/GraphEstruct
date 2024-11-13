@@ -286,7 +286,6 @@ public class Sintax extends java_cup.runtime.lr_parser {
             System.out.println("Error: Las dimensiones deben ser mayores que cero.");
         }
     }
-
     // Método para analizar la entrada de forma manual
     public void analizarEntrada(String entrada) {
         // Expresión regular para verificar estructura general de la instrucción
@@ -323,7 +322,8 @@ public class Sintax extends java_cup.runtime.lr_parser {
                 System.out.println("Error: Formato de instrucción incorrecto.");
             }
         } else {
-            System.out.println("La instruccion no es una matriz");
+           
+            System.out.println("");
         }
     }
 
