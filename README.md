@@ -46,11 +46,18 @@ Crear array MiArray[5];
 
 ### ✏️ Modificar una estructura:
 
-MODIFICAR [NOMBRE] [VALOR]
+VACIAR {IDENTIFICADOR};
 
 Ejemplo:
 ```bash
-Modificar MiArray[2] a 50;
+Vaciar MiArray;
+```
+---
+RELLENAR {IDENTIFICADOR};
+
+Ejemplo:
+```bash
+Rellenar MiArray;
 ```
 ---
 
